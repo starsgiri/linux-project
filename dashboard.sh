@@ -2,7 +2,6 @@
 
 # ============================================================
 # LOGPULSE - INTERACTIVE LOG ANALYTICS DASHBOARD
-# Pure Bash | Kali Linux | Ubuntu | SSH Compatible
 # ============================================================
 
 set -o pipefail
@@ -73,7 +72,7 @@ EOF
     printf "  ${GREEN}● SYSTEM ONLINE${RESET}"
     printf "   ${CYAN}%s${RESET}\n" "$(date '+%d %b %Y | %H:%M:%S')"
 
-    printf "  ${DIM}HOST:${RESET} %s" "$(hostname)"
+    printf "  ${DIM}HOST:${RESET} %s" "Teja"
     printf "   ${DIM}USER:${RESET} %s\n" "$(whoami)"
 
     if [[ -n "$CURRENT_LOG" ]]; then
@@ -370,7 +369,7 @@ export_report() {
         echo "         LOGPULSE ANALYTICS REPORT"
         echo "=========================================="
         echo "Generated : $(date)"
-        echo "Host      : $(hostname)"
+        echo "Host      : Teja"
         echo "Log       : $CURRENT_LOG"
         echo
         echo "TOTAL EVENTS : $total"
