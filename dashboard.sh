@@ -14,15 +14,21 @@ CONFIG_DIR="$ROOT/config"
 
 mkdir -p "$LOG_DIR" "$REPORT_DIR" "$CONFIG_DIR"
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-PURPLE='\033[1;35m'
-CYAN='\033[1;36m'
-WHITE='\033[1;37m'
-DIM='\033[2m'
+# High-contrast 256-color palette for LIGHT terminal backgrounds.
+# Keep the existing color variable names to preserve all dashboard methods.
+RED='\033[1;38;5;160m'      # Deep crimson: critical / errors
+GREEN='\033[1;38;5;28m'     # Forest green: success / information
+YELLOW='\033[1;38;5;130m'   # Dark amber: warnings (not bright yellow)
+BLUE='\033[1;38;5;25m'      # Deep blue: dividers
+PURPLE='\033[1;38;5;90m'    # Dark violet: debug
+CYAN='\033[1;38;5;30m'      # Dark teal: headings / menu choices
+WHITE='\033[1;38;5;235m'    # Near-black: headings on white
+DIM='\033[38;5;242m'       # Readable grey, not faint ANSI dim
 RESET='\033[0m'
+
+# Make grep --color=always matches readable on a light background.
+# Only presentation is changed; search patterns and results stay the same.
+export GREP_COLORS='ms=1;38;5;160;48;5;224:mc=1;38;5;160;48;5;224:fn=38;5;25:ln=1;38;5;30:se=38;5;242'
 
 CURRENT_LOG=""
 REFRESH_RATE=3
@@ -251,13 +257,13 @@ colorize() {
     {
         s=toupper($0)
         if (s ~ /CRITICAL|FATAL|ERROR|FAILED|EXCEPTION/)
-            print "\033[1;31m" $0 "\033[0m"
+            print "\033[1;38;5;160m" $0 "\033[0m"
         else if (s ~ /WARN/)
-            print "\033[1;33m" $0 "\033[0m"
+            print "\033[1;38;5;130m" $0 "\033[0m"
         else if (s ~ /INFO|SUCCESS/)
-            print "\033[1;32m" $0 "\033[0m"
+            print "\033[1;38;5;28m" $0 "\033[0m"
         else if (s ~ /DEBUG/)
-            print "\033[1;35m" $0 "\033[0m"
+            print "\033[1;38;5;90m" $0 "\033[0m"
         else
             print $0
     }'
